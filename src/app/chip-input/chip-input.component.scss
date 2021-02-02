@@ -6,6 +6,7 @@
   border: none;
   padding: 5px  0 5px 10px;
   display: block;
+  cursor: pointer;
   &:focus{
     background-color: rgba(170, 170, 170, 0.62);
     outline: none;
@@ -14,7 +15,7 @@
 .searchBar {
   border: none;
   height: 33px;
-  width: 200px;
+  width: 100%;
   &:focus {
     outline: none;
   }
@@ -27,4 +28,9 @@
   height: 35px;
   border: 1px solid gray;
   border-radius: 5px;
+  display: flex;
+  align-content: center;
+}
+.chip-item {
+  align-self: center;
 }
