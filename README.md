@@ -1,3 +1,10 @@
+To run app:
+1) npm i
+2) ng serve 
+
+
+
+
 # Frontend Assignment: Chip Input Component
 
 The assignment involves the creation of an Angular2+ component that implements the functionality of a chip input.
