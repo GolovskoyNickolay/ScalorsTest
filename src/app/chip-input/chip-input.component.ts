@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {ProgramLanguagesService} from '../services/program-languages.service';
 
@@ -11,6 +11,8 @@ import {ProgramLanguagesService} from '../services/program-languages.service';
   ]
 })
 export class ChipInputComponent implements OnInit {
+  @ViewChildren('elementsList') elementsList!: QueryList <ElementRef>;
+  @ViewChild('searchBar') searchBar!: ElementRef <HTMLElement>;
   allLanguages: string[] = [];
   foundedLanguages: string[] = [];
   filteredLanguages: string[] = [];
@@ -19,18 +21,6 @@ export class ChipInputComponent implements OnInit {
   constructor(private programLanguagesService: ProgramLanguagesService) { }
   ngOnInit(): void {
     this.allLanguages = this.programLanguagesService.fetchProgramLanguages();
-  }
-  registerOnChange(fn: () => null): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: () => null): void {
-    this.onTouch = fn;
-  }
-  writeValue(value: string[]): void {
-    this.foundedLanguages = value;
-  }
-  blurHandler(): void {
-    this.onTouch();
   }
   findLanguage(searchedString: string): void {
     if (!searchedString) {
@@ -50,11 +40,35 @@ export class ChipInputComponent implements OnInit {
   removeLanguage(language: string): void{
     const idx = this.foundedLanguages.indexOf(language);
     this.foundedLanguages.splice(idx, 1);
-    this.filteredLanguages.push(language);
   }
   removeItemsOnBackSpace(inputValue: string): void {
     if (!inputValue && this.foundedLanguages.length > 0) {
       this.foundedLanguages.splice(this.foundedLanguages.length - 1, 1);
     }
+  }
+  changeFocus(indexElementToFocus: number, isUp?: boolean): void {
+    console.log(this.searchBar);
+    console.log(indexElementToFocus);
+    if (isUp && indexElementToFocus === -1) {
+    this.searchBar.nativeElement.focus();
+  }
+    this.elementsList.forEach((item, index) => {
+      if (index === indexElementToFocus) {
+          item.nativeElement.focus();
+        }
+    });
+  }
+  // mandatory methods for value accessor
+  registerOnChange(fn: () => null): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => null): void {
+    this.onTouch = fn;
+  }
+  writeValue(value: string[]): void {
+    this.foundedLanguages = value;
+  }
+  blurHandler(): void {
+    this.onTouch();
   }
 }

@@ -1,10 +1,21 @@
-<div>
- <div *ngFor="let foundedLanguage of foundedLanguages">
-   <app-chip-item [name]="foundedLanguage" (removeLanguageEmitter)="removeLanguage($event)"></app-chip-item>
- </div>
-  <input type="text" #input (input)="findLanguage(input.value)" (keydown.backspace)="removeItemsOnBackSpace(input.value)">
-  <div *ngFor="let filteredLanguage of filteredLanguages">
-      <div (click)="addToFounded(filteredLanguage)">{{filteredLanguage}}</div>
+<div class="input-with-chips">
+  <div *ngFor="let foundedLanguage of foundedLanguages">
+    <app-chip-item [name]="foundedLanguage" (removeLanguageEmitter)="removeLanguage($event)"></app-chip-item>
+  </div>
+  <div>
+    <input type="text" #searchBar (input)="findLanguage(searchBar.value)" (keydown.backspace)="removeItemsOnBackSpace(searchBar.value)" (keydown.arrowDown)="changeFocus(0)">
+  </div>
+</div>
+<div class="search-result">
+  <div *ngFor="let filteredLanguage of filteredLanguages;index as i;">
+    <input
+      #elementsList
+      (keydown.enter)="addToFounded(filteredLanguage);searchBar.focus();findLanguage('');searchBar.value = '';"
+      (keydown.arrowDown)="changeFocus(i + 1)"
+      (keydown.arrowUp)="changeFocus(i - 1, true);"
+      (click)="addToFounded(filteredLanguage)"
+      type="text"
+      [value]="filteredLanguage" readonly>
   </div>
 </div>
 
