@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-chip-item',
@@ -7,9 +7,11 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ChipItemComponent implements OnInit {
   @Input() name = '';
+  @Output() removeLanguageEmitter = new EventEmitter<string>();
   constructor() { }
-
   ngOnInit(): void {
   }
-
+  remove(): void {
+    this.removeLanguageEmitter.emit(this.name);
+  }
 }

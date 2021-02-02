@@ -33,11 +33,28 @@ export class ChipInputComponent implements OnInit {
     this.onTouch();
   }
   findLanguage(searchedString: string): void {
-    this.filteredLanguages = this.allLanguages.filter((l) => {
-      return l.includes(searchedString);
+    if (!searchedString) {
+      this.filteredLanguages = [];
+      return;
+    }
+    this.filteredLanguages = this.allLanguages.
+    filter((l) => {
+      return l.toLowerCase().includes(searchedString.toLowerCase()) && !this.foundedLanguages.some(fL => fL === l);
     });
   }
   addToFounded(language: string): void {
+    const idx = this.filteredLanguages.indexOf(language);
+    this.filteredLanguages.splice(idx, 1);
     this.foundedLanguages.push(language);
+  }
+  removeLanguage(language: string): void{
+    const idx = this.foundedLanguages.indexOf(language);
+    this.foundedLanguages.splice(idx, 1);
+    this.filteredLanguages.push(language);
+  }
+  removeItemsOnBackSpace(inputValue: string): void {
+    if (!inputValue && this.foundedLanguages.length > 0) {
+      this.foundedLanguages.splice(this.foundedLanguages.length - 1, 1);
+    }
   }
 }
