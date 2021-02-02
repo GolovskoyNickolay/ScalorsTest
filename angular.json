@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "scalors-test"
+  "defaultProject": "scalors-test",
+  "cli": {
+    "analytics": "875e8151-1cd1-4b95-b845-e688e1023fb8"
+  }
 }

@@ -1,0 +1,10 @@
+<div>
+ <div *ngFor="let foundedLanguage of foundedLanguages">
+   <app-chip-item [name]="foundedLanguage"></app-chip-item>
+ </div>
+  <input type="text"  #input (input)="findLanguage(input.value)">
+  <div *ngFor="let filteredLanguage of filteredLanguages">
+      <div (click)="addToFounded(filteredLanguage)">{{filteredLanguage}}</div>
+  </div>
+</div>
+
