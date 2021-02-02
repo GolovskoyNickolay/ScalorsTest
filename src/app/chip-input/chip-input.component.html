@@ -1,21 +1,34 @@
-<div class="input-with-chips">
-  <div *ngFor="let foundedLanguage of foundedLanguages">
-    <app-chip-item [name]="foundedLanguage" (removeLanguageEmitter)="removeLanguage($event)"></app-chip-item>
+<div class="wrapper">
+  <div class="input-with-chips">
+      <ng-container *ngFor="let foundedLanguage of foundedLanguages">
+        <app-chip-item
+          [name]="foundedLanguage"
+          (removeLanguageEmitter)="removeLanguage($event)">
+        </app-chip-item>
+      </ng-container>
+      <input
+        class="searchBar"
+        type="text"
+        placeholder="Type a Programming Language"
+        minlength="100"
+        #searchBar
+        (input)="findLanguage(searchBar.value)"
+        (keydown.backspace)="removeItemsOnBackSpace(searchBar.value)"
+        (keydown.arrowDown)="changeFocus(0)">
   </div>
-  <div>
-    <input type="text" #searchBar (input)="findLanguage(searchBar.value)" (keydown.backspace)="removeItemsOnBackSpace(searchBar.value)" (keydown.arrowDown)="changeFocus(0)">
+  <div class="search-result" *ngIf="filteredLanguages?.length">
+      <input
+        *ngFor="let filteredLanguage of filteredLanguages;index as i;"
+        class="suggested-result"
+        type="text"
+        #elementsList
+        (keydown.enter)="addToFounded(filteredLanguage);searchBar.focus();findLanguage('');searchBar.value = '';"
+        (keydown.arrowDown)="changeFocus(i + 1)"
+        (keydown.arrowUp)="changeFocus(i - 1, true);"
+        (mouseover)="changeFocus(i)"
+        (click)="addToFounded(filteredLanguage)"
+        [value]="filteredLanguage" readonly>
   </div>
-</div>
-<div class="search-result">
-  <div *ngFor="let filteredLanguage of filteredLanguages;index as i;">
-    <input
-      #elementsList
-      (keydown.enter)="addToFounded(filteredLanguage);searchBar.focus();findLanguage('');searchBar.value = '';"
-      (keydown.arrowDown)="changeFocus(i + 1)"
-      (keydown.arrowUp)="changeFocus(i - 1, true);"
-      (click)="addToFounded(filteredLanguage)"
-      type="text"
-      [value]="filteredLanguage" readonly>
-  </div>
+
 </div>
 

@@ -1,0 +1,30 @@
+.wrapper {
+  width: 500px;
+}
+.suggested-result {
+  width: calc(100% - 10px);
+  border: none;
+  padding: 5px  0 5px 10px;
+  display: block;
+  &:focus{
+    background-color: rgba(170, 170, 170, 0.62);
+    outline: none;
+  }
+}
+.searchBar {
+  border: none;
+  height: 33px;
+  width: 200px;
+  &:focus {
+    outline: none;
+  }
+}
+.search-result {
+  width: calc(100% - 2px);
+  border: 1px solid gray;
+}
+.input-with-chips {
+  height: 35px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}

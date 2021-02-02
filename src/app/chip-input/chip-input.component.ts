@@ -47,8 +47,6 @@ export class ChipInputComponent implements OnInit {
     }
   }
   changeFocus(indexElementToFocus: number, isUp?: boolean): void {
-    console.log(this.searchBar);
-    console.log(indexElementToFocus);
     if (isUp && indexElementToFocus === -1) {
     this.searchBar.nativeElement.focus();
   }
